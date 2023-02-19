@@ -1,0 +1,40 @@
+package pageObject.pages;
+
+import data.EventsSortData;
+import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
+
+public class EventsPage extends AbsBasePage {
+
+    public EventsPage(WebDriver driver) {
+        super(driver, "/");
+    }
+
+    @FindBy(css = ".dod_new-events__list.js-dod_new_events a")
+    private List<WebElement> eventsListLocator;
+
+    @FindBy(css = ".dod_new-events__list.js-dod_new_events a .dod_new-type__text")
+    private List<WebElement> typeEventsLocator;
+
+    @FindBy(css = ".dod_new-events__empty-message")
+    private WebElement emptyEventsLocator;
+
+    public EventsPage checkSortByEvent(EventsSortData eventsSortData) {
+
+        if (eventsListLocator.size() != 0) {
+            for (WebElement element : eventsListLocator) {
+                Assertions.assertTrue(element.isDisplayed());
+            }
+            for (WebElement element : typeEventsLocator) {
+                System.out.println("222");
+                Assertions.assertEquals(eventsSortData.getNamePage(), element.getText());
+            }
+        } else
+            Assertions.assertTrue(emptyEventsLocator.isDisplayed());
+        return this;
+    }
+}
