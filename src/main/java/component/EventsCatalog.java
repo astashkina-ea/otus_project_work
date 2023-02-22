@@ -48,11 +48,10 @@ public class EventsCatalog extends AbsBasePage {
             eventsDateListString.add(element.getText());
         }
         for (String string : eventsDateListString) {
-            String day = string.split(" ")[0];
+            String date = string.split(" ")[0] + " ";
             String month = string.split(" ")[1];
-            month = month.replaceAll("[а-я]+", DateData.getDateData(month).getId());
-            String date = day + " " + month + " " + "2023";
-            LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd MM yyyy", Locale.ROOT));
+            date += month.replaceAll("[а-я]+", DateData.getDateData(month).getId()) + " " + "2023";
+            LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("d MM yyyy", Locale.ROOT));
             if (string.equals("Сейчас в эфире")) {
                 eventsDateListDate.add(LocalDate.now());
             } else {
@@ -61,7 +60,7 @@ public class EventsCatalog extends AbsBasePage {
         }
         for (LocalDate localDate : eventsDateListDate) {
             Assertions.assertTrue(localDate
-                    .isAfter(localDate.now()) || localDate.isEqual(localDate.now()));
+                    .isAfter(LocalDate.now()) || localDate.isEqual(LocalDate.now()));
         }
         return this;
     }

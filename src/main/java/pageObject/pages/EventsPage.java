@@ -30,7 +30,6 @@ public class EventsPage extends AbsBasePage {
                 Assertions.assertTrue(element.isDisplayed());
             }
             for (WebElement element : typeEventsLocator) {
-                System.out.println("222");
                 Assertions.assertEquals(eventsSortData.getNamePage(), element.getText());
             }
         } else
